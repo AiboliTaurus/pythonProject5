@@ -6,10 +6,17 @@ def mask_account_card(input_string: str) -> str:
     """
     Маскирует номер карты или счета в зависимости от типа
     """
+    i = None  # Инициализируем i значением None
+
     # Находим позицию начала номера
-    for i, char in enumerate(input_string):
+    for index, char in enumerate(input_string):
         if char.isdigit():
+            i = index  # Присваиваем значение i
             break
+
+    # Проверяем, нашли ли мы цифру в строке
+    if i is None:
+        raise ValueError("В строке не найдено числовых символов")
 
     # Извлекаем название и номер
     name_part = input_string[:i].strip()
