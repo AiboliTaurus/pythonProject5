@@ -22,6 +22,10 @@ isort = "^6.0.1"
 mypy = "^1.18.2"
 
 
+
+[tool.poetry.group.dev.dependencies]
+pytest-cov = "^7.0.0"
+
 [tool.black]
 line-length = 119
 
