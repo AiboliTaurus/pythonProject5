@@ -5,29 +5,34 @@ from src.masks import get_mask_card_number, get_mask_account
 
 
 # Тесты для get_mask_card_number
-def test_get_mask_card_number_valid():
-    # Базовый тест
-    assert get_mask_card_number(1234567890123456) == "1234 56** **** 3456"
+# Параметризация для валидных тестов
+@pytest.mark.parametrize(
+    "input_number, expected_result",
+    [
+        (1234567890123456, "1234 56** **** 3456"),  # базовый случай
+        (9999999999999999, "9999 99** **** 9999"),  # все девятки
+        (1111111111111111, "1111 11** **** 1111"),  # все единицы
+        (1234567812345678, "1234 56** **** 5678"),  # разные цифры
+        (8765432187654321, "8765 43** **** 4321")   # обратный порядок
+    ]
+)
+def test_get_mask_card_number_valid(input_number, expected_result):
+    result = get_mask_card_number(input_number)
+    assert result == expected_result
 
-    # Граничные случаи
-    assert get_mask_card_number(9999999999999999) == "9999 99** **** 9999"
-    assert get_mask_card_number(1111111111111111) == "1111 11** **** 1111"
-
-
-def test_get_mask_card_number_invalid_length():
-    # Слишком короткий номер
+# Параметризация для невалидных длин
+@pytest.mark.parametrize(
+    "invalid_number",
+    [
+        123456789012345,   # 15 цифр
+        12345678901234567  # 17 цифр
+    ]
+)
+def test_get_mask_card_number_invalid_length(invalid_number):
     with pytest.raises(ValueError):
-        get_mask_card_number(123456789012345)  # 15 цифр
-
-    # Слишком длинный номер
-    with pytest.raises(ValueError):
-        get_mask_card_number(12345678901234567)  # 17 цифр
+        get_mask_card_number(invalid_number)
 
 
-def test_get_mask_card_number_edge_cases():
-    # Разные комбинации цифр
-    assert get_mask_card_number(1234567812345678) == "1234 56** **** 5678"
-    assert get_mask_card_number(8765432187654321) == "8765 43** **** 4321"
 
 
 # Тесты для get_mask_account
