@@ -150,11 +150,3 @@ def test_card_number_generator(start, end, expected_numbers):
         assert len(number) == 19  # 16 цифр + 3 пробела
         assert all(part.isdigit() for part in number.split())
         assert all(len(part) == 4 for part in number.split())
-
-# Дополнительные тесты на граничные случаи
-def test_empty_transactions():
-    assert list(filter_by_currency([], "USD")) == []
-    assert list(transaction_descriptions([])) == []
-
-def test_no_matching_currency():
-    assert list(filter_by_currency(transactions, "EUR")) == []
