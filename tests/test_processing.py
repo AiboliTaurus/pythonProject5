@@ -4,16 +4,13 @@ import pytest
 from src.processing import filter_by_state, sort_by_date
 
 
-
-
-
 # Тесты для filter_by_state
 def test_filter_by_state_default():
     # Базовый тест с состоянием по умолчанию (EXECUTED)
     operations = [
         {"id": 1, "state": "EXECUTED", "date": "2023-01-01"},
         {"id": 2, "state": "CANCELED", "date": "2023-02-01"},
-        {"id": 3, "state": "EXECUTED", "date": "2023-03-01"}
+        {"id": 3, "state": "EXECUTED", "date": "2023-03-01"},
     ]
 
     result = filter_by_state(operations)
@@ -26,7 +23,7 @@ def test_filter_by_state_custom():
     operations = [
         {"id": 1, "state": "PENDING", "date": "2023-01-01"},
         {"id": 2, "state": "PENDING", "date": "2023-02-01"},
-        {"id": 3, "state": "EXECUTED", "date": "2023-03-01"}
+        {"id": 3, "state": "EXECUTED", "date": "2023-03-01"},
     ]
 
     result = filter_by_state(operations, "PENDING")
@@ -38,7 +35,7 @@ def test_filter_by_state_no_matches():
     # Тест когда нет подходящих операций
     operations = [
         {"id": 1, "state": "EXECUTED", "date": "2023-01-01"},
-        {"id": 2, "state": "CANCELED", "date": "2023-02-01"}
+        {"id": 2, "state": "CANCELED", "date": "2023-02-01"},
     ]
 
     result = filter_by_state(operations, "PENDING")
@@ -86,7 +83,7 @@ def test_sort_by_date_descending():
     operations = [
         {"id": 1, "date": "2023-01-01T00:00:00"},
         {"id": 2, "date": "2023-03-01T00:00:00"},
-        {"id": 3, "date": "2023-02-01T00:00:00"}
+        {"id": 3, "date": "2023-02-01T00:00:00"},
     ]
 
     result = sort_by_date(operations)
@@ -99,7 +96,7 @@ def test_sort_by_date_ascending():
     operations = [
         {"id": 1, "date": "2023-03-01T00:00:00"},
         {"id": 2, "date": "2023-01-01T00:00:00"},
-        {"id": 3, "date": "2023-02-01T00:00:00"}
+        {"id": 3, "date": "2023-02-01T00:00:00"},
     ]
 
     result = sort_by_date(operations, descending=False)
