@@ -27,7 +27,7 @@ def mask_account_card(input_string: str) -> str:
         number = int(number_part)
 
         # Проверяем наличие слова "счет" без учета регистра
-        if 'счет' in name_part.lower():
+        if "счет" in name_part.lower():
             masked_number = get_mask_account(number)
         else:
             masked_number = get_mask_card_number(number)
@@ -43,10 +43,10 @@ def get_date(date_string: str) -> str:
     Преобразует строку с датой из формата ISO в формат ДД.ММ.ГГГГ
     """
     try:
-        #Декодируем исходную дату
+        # Декодируем исходную дату
         original_date = datetime.fromisoformat(date_string)
         # Форматируем в нужный формат
-        formatted_date = original_date.strftime('%d.%m.%Y')
+        formatted_date = original_date.strftime("%d.%m.%Y")
         return formatted_date
     except ValueError:
         raise ValueError("Неверный формат даты. Ожидается формат 'ГГГГ-ММ-ДДТЧЧ:ММ:СС'")
