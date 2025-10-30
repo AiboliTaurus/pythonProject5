@@ -4,7 +4,7 @@ from typing import List, Dict
 
 def load_csv(file_path: str) -> List[Dict]:
     """
-    Загружает транзакции из CSV-файла
+    Загружает транзакции из CSV-файла с разделителем ";"
 
     Args:
         file_path (str): путь к CSV-файлу
@@ -14,7 +14,8 @@ def load_csv(file_path: str) -> List[Dict]:
     """
     try:
         with open(file_path, mode="r", encoding="utf-8") as file:
-            reader = csv.DictReader(file)
+            # Указываем разделитель ";"
+            reader = csv.DictReader(file, delimiter=";")
             return [row for row in reader]
     except FileNotFoundError:
         raise FileNotFoundError(f"Файл {file_path} не найден")
