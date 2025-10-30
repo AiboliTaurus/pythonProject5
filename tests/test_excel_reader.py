@@ -1,6 +1,6 @@
 import pandas as pd
 import pytest
-from unittest.mock import patch, mock_open
+from unittest.mock import patch
 from src.excel_reader import load_excel
 
 
