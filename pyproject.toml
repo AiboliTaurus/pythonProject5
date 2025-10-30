@@ -8,6 +8,9 @@ authors = [
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
+    "python-dotenv (>=1.1.1,<2.0.0)",
+    "requests (>=2.32.5,<3.0.0)",
+    "pandas (>=2.3.3,<3.0.0)"
 ]
 
 
@@ -38,3 +41,8 @@ profile = "black"
 [tool.mypy]
 disallow_untyped_defs = true
 warn_return_any = true
+
+[flake8]
+max-line-length = 119
+exclude = [".git", "__pycache__", "tests/fixtures"]
+ignore = ["E203", "E501", "W503"]

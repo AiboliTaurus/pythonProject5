@@ -1,4 +1,4 @@
-def filter_by_state(operations: list, state: str = 'EXECUTED') -> list:
+def filter_by_state(operations: list, state: str = "EXECUTED") -> list:
     """
     Фильтрует список операций по указанному состоянию
 
@@ -22,7 +22,7 @@ def filter_by_state(operations: list, state: str = 'EXECUTED') -> list:
             raise ValueError("Все элементы списка должны быть словарями")
 
         # Проверяем наличие ключа 'state' в каждом словаре
-        if 'state' not in operation:
+        if "state" not in operation:
             raise ValueError("Каждый словарь должен содержать ключ 'state'")
 
     # Проверяем, что state является строкой
@@ -30,11 +30,7 @@ def filter_by_state(operations: list, state: str = 'EXECUTED') -> list:
         raise ValueError("Параметр state должен быть строкой")
 
     # Фильтруем операции по состоянию
-    filtered_operations = [
-        operation
-        for operation in operations
-        if operation.get('state') == state
-    ]
+    filtered_operations = [operation for operation in operations if operation.get("state") == state]
 
     return filtered_operations
 
@@ -61,16 +57,12 @@ def sort_by_date(operations: list, descending: bool = True) -> list:
     def get_date(operation):
         try:
             # Преобразуем строку в объект datetime
-            return datetime.fromisoformat(operation['date'])
+            return datetime.fromisoformat(operation["date"])
         except (KeyError, ValueError):
             # Если дата отсутствует или некорректна, возвращаем минимальную дату
             return datetime.min
 
     # Сортируем операции по дате
-    sorted_operations = sorted(
-        operations,
-        key=get_date,
-        reverse=descending
-    )
+    sorted_operations = sorted(operations, key=get_date, reverse=descending)
 
     return sorted_operations
