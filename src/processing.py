@@ -16,21 +16,14 @@ def filter_by_state(operations: list, state: str = "EXECUTED") -> list:
     if not isinstance(operations, list):
         raise ValueError("Первый аргумент должен быть списком операций")
 
-    # Проверяем, что все элементы списка являются словарями
-    for operation in operations:
-        if not isinstance(operation, dict):
-            raise ValueError("Все элементы списка должны быть словарями")
-
-        # Проверяем наличие ключа 'state' в каждом словаре
-        if "state" not in operation:
-            raise ValueError("Каждый словарь должен содержать ключ 'state'")
-
     # Проверяем, что state является строкой
     if not isinstance(state, str):
         raise ValueError("Параметр state должен быть строкой")
 
-    # Фильтруем операции по состоянию
-    filtered_operations = [operation for operation in operations if operation.get("state") == state]
+    # Фильтруем операции по состоянию, пропуская записи без ключа 'state'
+    filtered_operations = [
+        operation for operation in operations if isinstance(operation, dict) and operation.get("state") == state
+    ]
 
     return filtered_operations
 
