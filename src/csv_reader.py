@@ -1,5 +1,5 @@
 import csv
-from typing import List, Dict
+from typing import Dict, List
 
 
 def load_csv(file_path: str) -> List[Dict]:

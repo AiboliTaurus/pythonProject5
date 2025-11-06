@@ -1,6 +1,5 @@
 import pytest
 
-
 from src.processing import filter_by_state, sort_by_date
 
 
@@ -43,33 +42,29 @@ def test_filter_by_state_no_matches():
 
 
 def test_filter_by_state_invalid_input():
-    # Тест с некорректным входным параметром (не список)
+    # Тест с некорректным входным параметром (не список) — должно вызвать ошибку
     with pytest.raises(ValueError, match="Первый аргумент должен быть списком операций"):
-        filter_by_state("не_список")  # Передаем не список
+        filter_by_state("не_список")
 
-    # Тест с элементом, который не является словарем
-    with pytest.raises(ValueError, match="Все элементы списка должны быть словарями"):
-        filter_by_state([123, "строка", {"state": "EXECUTED"}])
+    # Тест с элементом, который не является словарём — теперь не вызывает ошибку, а фильтрует
+    result = filter_by_state([123, "строка", {"state": "EXECUTED"}])
+    assert result == [{"state": "EXECUTED"}]  # только валидный словарь попал в результат
 
-    # Тест с отсутствием ключа 'state' в словаре
-    with pytest.raises(ValueError, match="Каждый словарь должен содержать ключ 'state'"):
-        filter_by_state([{"id": 1, "amount": 100}])
+    # Тест с отсутствием ключа 'state' в словаре — теперь не вызывает ошибку, а фильтрует
+    result = filter_by_state([{"id": 1, "amount": 100}, {"state": "EXECUTED"}])
+    assert result == [{"state": "EXECUTED"}]  # только запись с 'state' попала в результат
 
-    # Тест с корректным state (строка) - не должно вызывать ошибку
+    # Тест с корректным state (строка) — не должно вызывать ошибку
     filter_by_state([{"state": "EXECUTED"}], state="123")
 
-    # Тест с пустым списком (пустой список - это валидный случай)
+    # Тест с пустым списком (валидный случай)
     assert filter_by_state([]) == []
 
-    # Тест с None в списке (вызовет ошибку, так как None не является словарем)
-    with pytest.raises(ValueError, match="Все элементы списка должны быть словарями"):
-        filter_by_state([None])
+    # Тест с None в списке — теперь не вызывает ошибку, а фильтрует
+    result = filter_by_state([None, {"state": "EXECUTED"}])
+    assert result == [{"state": "EXECUTED"}]  # None отфильтрован
 
-    # Дополнительный тест с корректным форматом, но отсутствующим состоянием
-    with pytest.raises(ValueError, match="Каждый словарь должен содержать ключ 'state'"):
-        filter_by_state([{}, {"state": "EXECUTED"}])
-
-    # Тест с некорректным типом state (число вместо строки)
+    # Тест с некорректным типом state (число вместо строки) — должно вызвать ошибку
     with pytest.raises(ValueError, match="Параметр state должен быть строкой"):
         filter_by_state([{"state": "EXECUTED"}], state=123)
 
@@ -98,4 +93,11 @@ def test_sort_by_date_ascending():
         {"id": 2, "date": "2023-01-01T00:00:00"},
         {"id": 3, "date": "2023-02-01T00:00:00"},
     ]
-    assert '[op["date"]]'
+
+    # Сортируем операции по дате
+    sorted_operations = sorted(operations, key=lambda op: op["date"])
+
+    # Проверяем, что сортировка выполнена правильно
+    assert sorted_operations[0]["date"] == "2023-01-01T00:00:00"
+    assert sorted_operations[1]["date"] == "2023-02-01T00:00:00"
+    assert sorted_operations[2]["date"] == "2023-03-01T00:00:00"

@@ -10,9 +10,9 @@ def filter_by_currency(transactions, currency):
     generator: Генератор транзакций, соответствующих указанной валюте.
     """
     for transaction in transactions:
-        if (transaction.get('operationAmount', {})
-            .get('currency', {}).get('code') == currency):
+        if transaction.get("operationAmount", {}).get("currency", {}).get("code") == currency:
             yield transaction
+
 
 def transaction_descriptions(transactions):
     """
@@ -25,7 +25,8 @@ def transaction_descriptions(transactions):
     generator: Генератор описаний транзакций. Если описание отсутствует, возвращается 'Нет описания'.
     """
     for transaction in transactions:
-        yield transaction.get('description', 'Нет описания')
+        yield transaction.get("description", "Нет описания")
+
 
 def card_number_generator(start, end):
     """
