@@ -1,8 +1,8 @@
-import pytest
 from collections import Counter
-from typing import List, Dict
-from utils.bank_processing import process_bank_search, process_bank_operations
+from typing import Dict, List
 
+
+from utils.bank_processing import process_bank_operations, process_bank_search
 
 # Тесты для process_bank_search
 
@@ -155,16 +155,6 @@ def test_process_bank_operations_empty_categories():
     data = [{"description": "Покупка в Пятерочке"}]
     result = process_bank_operations(data, [])
     assert result == {}
-
-
-def process_bank_operations(data: List[Dict], categories: List[str]) -> Dict:
-    category_counts = Counter()
-    for transaction in data:
-        description = transaction.get("description", "").lower()
-        for category in categories:
-            if category.lower() in description:  # приводим категорию к нижнему регистру
-                category_counts[category] += 1
-    return dict(category_counts)
 
 
 def test_process_bank_operations_duplicate_categories():

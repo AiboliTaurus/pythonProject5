@@ -1,7 +1,6 @@
-import os
-import sys
 import logging
-from typing import List, Dict
+
+from typing import Dict, List
 
 # Импорты модулей проекта
 from src.csv_reader import load_csv
@@ -125,7 +124,6 @@ def display_results(data: List[Dict]):
             from_account = mask_account_card(transaction.get("from", ""))
             to_account = mask_account_card(transaction.get("to", ""))
             amount = transaction.get("amount", 0)
-            currency = transaction.get("currency", "")
 
             # Выводим информацию о транзакции
             print(f"Операция №{idx}")

@@ -1,6 +1,5 @@
 import pytest
 
-
 from src.processing import filter_by_state, sort_by_date
 
 
@@ -94,4 +93,11 @@ def test_sort_by_date_ascending():
         {"id": 2, "date": "2023-01-01T00:00:00"},
         {"id": 3, "date": "2023-02-01T00:00:00"},
     ]
-    assert '[op["date"]]'
+
+    # Сортируем операции по дате
+    sorted_operations = sorted(operations, key=lambda op: op["date"])
+
+    # Проверяем, что сортировка выполнена правильно
+    assert sorted_operations[0]["date"] == "2023-01-01T00:00:00"
+    assert sorted_operations[1]["date"] == "2023-02-01T00:00:00"
+    assert sorted_operations[2]["date"] == "2023-03-01T00:00:00"

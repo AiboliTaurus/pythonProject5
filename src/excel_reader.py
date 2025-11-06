@@ -1,5 +1,6 @@
+from typing import Dict, List
+
 import pandas as pd
-from typing import List, Dict
 
 
 def load_excel(file_path: str) -> List[Dict]:

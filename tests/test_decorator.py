@@ -1,4 +1,5 @@
 import pytest
+
 from src.decorators import log
 
 
@@ -31,13 +32,6 @@ def test_log_error(capsys):
 # Тест с файлом логов
 def test_log_to_file(tmp_path):
     log_file = tmp_path / "test_log.txt"
-    filename = str(log_file)
-
-
-# Новый тест: проверка логов при ошибке
-def test_log_error_to_file(tmp_path):
-    log_file = tmp_path / "test_log_error.txt"
-    filename = str(log_file)
 
 
 # Проверка работы декоратора с разными типами аргументов

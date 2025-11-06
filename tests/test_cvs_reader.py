@@ -1,5 +1,7 @@
+from unittest.mock import mock_open, patch
+
 import pytest
-from unittest.mock import patch, mock_open
+
 from src.csv_reader import load_csv
 
 
@@ -84,7 +86,11 @@ def test_load_csv_special_chars(mock_file):
 @patch(
     "builtins.open",
     new_callable=mock_open,
-    read_data="id;description\n1;Очень длинное описание, которое превышает стандартную длину строки и содержит много информации",
+    read_data=(
+        "id;description\n"
+        "1;Очень длинное описание, которое превышает "
+        "стандартную длину строки и содержит много информации"
+    ),
 )
 def test_load_csv_long_strings(mock_file):
     result = load_csv("long_strings.csv")
