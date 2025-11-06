@@ -8,7 +8,7 @@ from src.excel_reader import load_excel
 from src.processing import filter_by_state, sort_by_date
 from src.utils import load_transactions
 from src.widget import get_date, mask_account_card
-from utils.bank_processing import process_bank_search
+from src.bank_processing import process_bank_search
 
 # Настройка логирования
 logging.basicConfig(level=logging.INFO)
