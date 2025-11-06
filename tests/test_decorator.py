@@ -31,7 +31,20 @@ def test_log_error(capsys):
 
 # Тест с файлом логов
 def test_log_to_file(tmp_path):
+    # Создаем временный файл лога
     log_file = tmp_path / "test_log.txt"
+
+    # Открываем файл для записи
+    with open(log_file, "w") as f:
+        # Записываем тестовое сообщение
+        f.write("Тестовый лог-файл")
+
+    # Проверяем, что файл создан и содержит данные
+    assert log_file.exists()
+    assert log_file.read_text() == "Тестовый лог-файл"
+
+    # Дополнительно можно проверить размер файла
+    assert log_file.stat().st_size > 0
 
 
 # Проверка работы декоратора с разными типами аргументов
