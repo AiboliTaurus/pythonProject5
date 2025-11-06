@@ -1,4 +1,4 @@
-from utils.bank_processing import process_bank_operations, process_bank_search
+from src.bank_processing import process_bank_operations, process_bank_search
 
 # Тесты для process_bank_search
 
